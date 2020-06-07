@@ -40,5 +40,20 @@ function minSubArrayLen(arr, num) {
     return result === Infinity ? 0 : result;
 }
 
-console.log(minSubArrayLen([1, 4, 16, 22, 5, 7, 8, 9, 10], 39));
-console.log(minSubArrayLen([2, 3, 1, 2, 4, 3], 7));
+// find longest substring with distinct characters
+
+function findLongestSubstring(str){
+    let seen = {};
+    let start = 0;
+    let end = 0;
+    let result = 0;
+    while (end < str.length) {
+        if ((str[end] in seen) && (seen[str[end]] >= start)) {
+            result = Math.max(result, end - start);
+            start = seen[str[end]] + 1;
+        }
+        seen[str[end]] = end;
+        end++;
+    }
+    return Math.max(result, end - start);
+}
